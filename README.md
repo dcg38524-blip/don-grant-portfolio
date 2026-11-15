@@ -54,3 +54,7 @@ The Cisco & G&A page includes original AI-generated illustrative images in asset
 
 ## Version 6 — expanded G&A visual gallery
 Three additional illustrative gallery panels are integrated into `cisco-networking.html`, stored as `assets/ga-heritage-gallery-1.webp` through `-3.webp`. All images are conceptual, not historical photographs.
+
+
+## Version 7 — Human + Technology Cinematic Story
+The 45-second Watch My Tech Story animation now features six optimized WebP backgrounds showing illustrative technology professionals, alongside existing animated canvas visuals. All existing Play, Pause, Replay and Theater Mode controls are preserved. No external assets or libraries are required. Imagery is AI-generated illustration and does not represent documented historical photos of Don Grant or former colleagues.
