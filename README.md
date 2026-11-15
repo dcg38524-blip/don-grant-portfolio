@@ -58,3 +58,13 @@ Three additional illustrative gallery panels are integrated into `cisco-networki
 
 ## Version 7 — Human + Technology Cinematic Story
 The 45-second Watch My Tech Story animation now features six optimized WebP backgrounds showing illustrative technology professionals, alongside existing animated canvas visuals. All existing Play, Pause, Replay and Theater Mode controls are preserved. No external assets or libraries are required. Imagery is AI-generated illustration and does not represent documented historical photos of Don Grant or former colleagues.
+
+
+## Version 8 — Personal customer-interaction vignettes
+Three illustrative AI-composited scenes featuring Don Grant’s likeness were ADDED to the 45-second film at approximately 8.5–13.3s, 17–21.8s, and 24–29s. All six Version 7 people scenes remain untouched. The original film timing, playback, pause, replay, theater mode, website pages, and gallery assets remain intact.
+
+New assets: customer-conference-presentation.webp, customer-consultation.webp, customer-analytics-demonstration.webp.
+
+These are illustrative composites, not documentary photographs of real client meetings.
+
+To publish: upload all extracted files, including the assets directory, to the GitHub repository root. If the browser displays cached Version 7 imagery, hard-refresh (Ctrl+Shift+R).

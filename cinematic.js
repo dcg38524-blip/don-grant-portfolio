@@ -13,6 +13,23 @@ const duration=45, chapters=[
 let running=false,elapsed=0,last=0,raf=0,scene=-1,stars=[],width=1200,height=675;
 const peopleScenes=Array.from({length:6},(_,i)=>{const im=new Image();im.src='assets/tech-story-people-'+i+'.webp';im.onload=()=>{if(!running)render()};return im});
 function drawPeople(t){const n=Math.min(5,Math.floor(t/7.5));const im=peopleScenes[n];if(!im.complete||!im.naturalWidth)return;const scale=Math.max(width/im.naturalWidth,height/im.naturalHeight);const dw=im.naturalWidth*scale,dh=im.naturalHeight*scale;const drift=Math.sin(t*.24)*Math.min(13,width*.012);ctx.save();ctx.globalAlpha=.78;ctx.drawImage(im,(width-dw)/2+drift,(height-dh)/2,dw,dh);ctx.restore();const shade=ctx.createLinearGradient(0,0,0,height);shade.addColorStop(0,'rgba(3,12,27,.33)');shade.addColorStop(.43,'rgba(3,12,27,.47)');shade.addColorStop(1,'rgba(3,12,27,.83)');ctx.fillStyle=shade;ctx.fillRect(0,0,width,height)}
+// Version 8 additive personalized vignettes. Original six backgrounds remain unchanged.
+const customerScenes=[
+ {start:8.5,end:13.3,src:'assets/customer-conference-presentation.webp'},
+ {start:17.0,end:21.8,src:'assets/customer-consultation.webp'},
+ {start:24.0,end:29.0,src:'assets/customer-analytics-demonstration.webp'}
+].map(v=>{const im=new Image();im.src=v.src;im.onload=()=>{if(!running)render()};return {...v,im}});
+function drawCustomerVignettes(t){
+ for(const v of customerScenes){if(t<v.start||t>v.end||!v.im.complete||!v.im.naturalWidth)continue;
+  const fade=.8;const alpha=Math.min(1,(t-v.start)/fade,(v.end-t)/fade);
+  const zoom=1.015+(t-v.start)*.004;
+  const scale=Math.max(width/v.im.naturalWidth,height/v.im.naturalHeight)*zoom;
+  const dw=v.im.naturalWidth*scale,dh=v.im.naturalHeight*scale;
+  ctx.save();ctx.globalAlpha=Math.max(0,alpha)*.92;
+  ctx.drawImage(v.im,(width-dw)/2,(height-dh)/2,dw,dh);ctx.restore();
+  const shade=ctx.createLinearGradient(0,0,0,height);shade.addColorStop(0,'rgba(3,12,27,.14)');shade.addColorStop(.65,'rgba(3,12,27,.23)');shade.addColorStop(1,'rgba(3,12,27,.74)');ctx.fillStyle=shade;ctx.globalAlpha=Math.max(0,alpha);ctx.fillRect(0,0,width,height);ctx.globalAlpha=1;
+ }
+}
 function rand(i,seed=0){let n=Math.sin(i*127.1+seed*311.7)*43758.5453;return n-Math.floor(n)}
 function resize(){const rect=canvas.getBoundingClientRect();const dpr=Math.min(devicePixelRatio||1,2);width=Math.max(1,rect.width);height=Math.max(1,rect.height);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);stars=Array.from({length:115},(_,i)=>({x:rand(i,1)*width,y:rand(i,2)*height,r:rand(i,3)*1.3+.25,phase:rand(i,4)*6.28}));render()}
 function line(x1,y1,x2,y2,alpha=1,stroke='#1bcfbf',lw=1){ctx.strokeStyle=stroke;ctx.globalAlpha=alpha;ctx.lineWidth=lw;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.globalAlpha=1}
@@ -25,7 +42,7 @@ function analytics(t){let left=width*.16,top=height*.2,w=width*.68,h=height*.53;
 function ai(t){let pts=Array.from({length:34},(_,i)=>{let a=i*2.4+t*.07,r=Math.sqrt(i/34)*Math.min(width,height)*.38;return [width*.5+Math.cos(a)*r,height*.5+Math.sin(a)*r]});for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){let dx=pts[i][0]-pts[j][0],dy=pts[i][1]-pts[j][1],dist=Math.hypot(dx,dy);if(dist<Math.min(width,height)*.23)line(...pts[i],...pts[j],.22*(1-dist/(Math.min(width,height)*.3)),'#54d8f2')}}pts.forEach((p,i)=>dot(...p,2.5+Math.sin(t+i)*.7,i%3===0?'#88b9ff':'#3af3d5',.8))}
 function finale(t){network(t);ctx.font=`800 ${Math.min(width*.17,height*.34)}px Segoe UI,Arial,sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.shadowColor='#1ed5c7';ctx.shadowBlur=30;ctx.fillStyle='#e8faff22';ctx.fillText('DG.',width*.5,height*.5);ctx.shadowBlur=0}
 function setChapter(){let next=chapters.length-1;for(let i=0;i<chapters.length;i++){if(elapsed<chapters[i].at+7.5){next=i;break}}if(next===scene)return;scene=next;let c=chapters[next];overline.textContent=c.label;title.textContent=c.title;subtitle.textContent=c.sub;index.textContent=String(next+1).padStart(2,'0')+' / 06'}
-function render(){bg(elapsed);drawPeople(elapsed);let n=Math.min(5,Math.floor(elapsed/7.5));ctx.save();ctx.globalAlpha=.36;[network,racks,operations,analytics,ai,finale][n](elapsed);ctx.restore();setChapter();progress.style.width=(elapsed/duration*100)+'%';const seconds=Math.min(duration,Math.floor(elapsed));clock.textContent='00:'+String(seconds).padStart(2,'0')+' / 00:45'}
+function render(){bg(elapsed);drawPeople(elapsed);drawCustomerVignettes(elapsed);let n=Math.min(5,Math.floor(elapsed/7.5));ctx.save();ctx.globalAlpha=.36;[network,racks,operations,analytics,ai,finale][n](elapsed);ctx.restore();setChapter();progress.style.width=(elapsed/duration*100)+'%';const seconds=Math.min(duration,Math.floor(elapsed));clock.textContent='00:'+String(seconds).padStart(2,'0')+' / 00:45'}
 function step(now){if(!running)return;if(last)elapsed+=Math.min((now-last)/1000,.12);last=now;if(elapsed>=duration){elapsed=duration;running=false;toggle.textContent='▶ Play';toggle.setAttribute('aria-label','Play animation');render();return}render();raf=requestAnimationFrame(step)}
 function play(reset=false){if(reset)elapsed=0;start.hidden=true;if(running)return;running=true;last=0;toggle.textContent='Ⅱ Pause';toggle.setAttribute('aria-label','Pause animation');raf=requestAnimationFrame(step)}
 function pause(){running=false;cancelAnimationFrame(raf);toggle.textContent='▶ Play';toggle.setAttribute('aria-label','Play animation')}
