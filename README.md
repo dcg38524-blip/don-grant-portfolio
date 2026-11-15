@@ -39,3 +39,12 @@ Open `business-intelligence.html` directly in Edge/Chrome/Firefox; no web server
 - Animation is original Canvas 2D / JavaScript and works offline in Edge, Chrome and Firefox. No MP4, external libraries, audio, analytics or external data calls.
 - Playback starts on user action (avoids unwanted autoplay); users who prefer reduced motion are not forced to watch.
 - All other Version 3 pages, data and assets are retained.
+
+
+## Version 6 additions (November 2026)
+
+- Expanded G&A Networking as an IT consulting business and historical reseller of Cisco, HP, and Sun Microsystems equipment and services.
+- Added consulting/service delivery spotlight on the homepage and detailed technology solutions section on Cisco & G&A page.
+- Added MEAP workflow and governance highlights to the homepage.
+- Existing cinematic animation, synthetic-data BI dashboard, scripts, and assets are retained.
+- GitHub Pages: upload the contents of this ZIP to the repository root, preserving the `assets/` directory.
