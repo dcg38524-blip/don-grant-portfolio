@@ -48,3 +48,9 @@ Open `business-intelligence.html` directly in Edge/Chrome/Firefox; no web server
 - Added MEAP workflow and governance highlights to the homepage.
 - Existing cinematic animation, synthetic-data BI dashboard, scripts, and assets are retained.
 - GitHub Pages: upload the contents of this ZIP to the repository root, preserving the `assets/` directory.
+
+## G&A Visual Edition
+The Cisco & G&A page includes original AI-generated illustrative images in assets/ga-*.webp. These are conceptual visuals, not photographs of actual customer installations or historical projects.
+
+## Version 6 — expanded G&A visual gallery
+Three additional illustrative gallery panels are integrated into `cisco-networking.html`, stored as `assets/ga-heritage-gallery-1.webp` through `-3.webp`. All images are conceptual, not historical photographs.
