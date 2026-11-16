@@ -68,3 +68,14 @@ New assets: customer-conference-presentation.webp, customer-consultation.webp, c
 These are illustrative composites, not documentary photographs of real client meetings.
 
 To publish: upload all extracted files, including the assets directory, to the GitHub repository root. If the browser displays cached Version 7 imagery, hard-refresh (Ctrl+Shift+R).
+
+
+## Version 9 — Technology That Makes a Difference
+
+- New `technology-impact.html` educational hub: AI for good, data intelligence, responsible AI, curated external news/research sources.
+- New `technology-impact.js`: interactive fictional before/after analytics scenario.
+- New homepage teaser and navigation links on existing pages.
+- All Version 8 original pages, cinematic visuals, customer scenes, images, JS and controls retained.
+- News links are curated sources, not an automated or live headline feed; revisit periodically.
+- No confidential company data. The scenario uses invented figures.
+- Deployment: upload all files, including the two new files and updated HTML/CSS, to the same GitHub Pages repository.
